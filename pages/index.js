@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { debounce } from 'lodash';
-import uitls from '../util';
+import utils from '../util';
+import '../styles/styles.css';
 
 class App extends Component {
   constructor(props) {
@@ -56,26 +57,53 @@ class App extends Component {
 
   compute() {
     const { arrayJS, inputJS } = this.state;
-    const union = uitls.computeUnion(arrayJS, inputJS);
+    const union = utils.computeUnion(arrayJS, inputJS);
     const intersecion = utils.computeIntersecion(arrayJS, inputJS);
+    this.setState({
+      union,
+      intersecion,
+    })
     console.log(union, intersecion);
   }
 
   render() {
-    const  { arrayError, arrayErrorMsg, inputVal, arrayUserInput } = this.state;
+    const { arrayError, arrayErrorMsg, inputVal, arrayUserInput, union, intersecion } = this.state;
+    // union = [7000,7001,7002,7003,7004,7005]; intersecion = [7000,7001,7002,7003];
     return (
-      <div>
-        <div>
-          <input type="text" onChange={this.onArrayChange} value={arrayUserInput} />
-          {
-              arrayError ? <div>{arrayErrorMsg}</div> : null
-          }
+      <Fragment>
+        <div className="container">
+          <div className="group">
+            <input type="text" onChange={this.onArrayChange} value={arrayUserInput} required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label>Create an Array</label>
+          </div>
+          <div className="group">
+            <input type="text" onChange={this.onInputChange} value={inputVal} required />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+            <label>Enter input to check against the array</label>
+          </div>
+          <button onClick={this.compute} disabled={arrayUserInput === '' || inputVal === ''}>
+            <span>compute</span>
+          </button>
         </div>
-        <div>
-          <input type="text" onChange={this.onInputChange} value={inputVal} />
-        </div>
-        <button onClick={this.compute}>compute</button>
-      </div>
+        {
+          union && intersecion ?
+            <div className="output">
+              <div className="text-wrap">
+                <p>
+                  <span className="numbers red ellipses">{`${intersecion.join(',')} `}</span><span>These values are duplicated and skiped.</span>
+                </p>
+                <p>
+                  <span>The final values are</span><span className="numbers green ellipses">{` ${union.join(',')}`}</span>
+                </p>
+              </div>
+            </div>
+            :
+            null
+        }
+      </Fragment>
     );
   }
 }
