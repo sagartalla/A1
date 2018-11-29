@@ -1,10 +1,11 @@
 {
-  "name": "basic-css",
+  "name": "a1",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "NODE_ENV=test mocha"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -15,6 +16,11 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "jasmine": "^3.3.0"
+    "@babel/core": "^7.0.1",
+    "@babel/register": "^7.0.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^5.2.0"
   }
 }

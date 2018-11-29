@@ -21,7 +21,7 @@ const computeUnion = (a1, a2) => {
       union = [].concat(union, range[0]);
     }
     if(arry[arry.length - 1] < range[1]) {
-      union = [].concat(union, [...new Array(range[1] + 1 - arry[arry.length - 1] + 1)].map((ele, i) => i + arry[arry.length - 1]));
+      union = [].concat(union, [...new Array(range[1] - arry[arry.length - 1])].map((ele, i) => i + 1 + arry[arry.length - 1]));
     }
     if(arry[arry.length - 1] > range[1] && binaryIndexOf(arry, range[1]) === -1) {
       union = [].concat(union, range[1]);
@@ -91,7 +91,7 @@ const computeIntersecion = (a1, a2) => {
   rangeArry.forEach((range) => {
     range.sort();
     if(range[0] < arry[0] && range[1] > arry[arry.length - 1]) {
-      // do nothing;
+      intersecion = [].concat([], a1);
     }
     if(range[0] < arry[0] && range[1] < arry[arry.length - 1]) {
       const index = indexOfMaxLessThanEqualTo(arry, range[1]);
@@ -100,6 +100,9 @@ const computeIntersecion = (a1, a2) => {
     if(range[0] > arry[0] && range[1] > arry[arry.length - 1]) {
       const index = indexOfMinGreaterThanEqualTo(arry, range[0])
       intersecion = a1.slice(index, arry.length);
+    }
+    if(range[0] > arry[0] && range[1] < arry[arry.length - 1]) {
+      intersecion = [...new Array(range[1] - range[0] + 1)].map((e, i) => i + range[0]);
     }
   });
   return intersecion;
