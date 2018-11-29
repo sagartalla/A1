@@ -1,4 +1,4 @@
-# Simple Demo of Arary Manipulaition.
+# Simple Demo of Array Manipulaition.
 
 Steps to run the app
 
