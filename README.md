@@ -7,7 +7,7 @@ npm install
 npm run dev
 ```
 
-Steps to test
+Steps to run tests
 
 ```
 npm install
