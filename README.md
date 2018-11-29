@@ -1,4 +1,4 @@
-# bms a1
+# Simple Demo of Arary Manipulaition.
 
 Steps to run the app
 
