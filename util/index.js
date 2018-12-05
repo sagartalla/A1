@@ -94,19 +94,23 @@ const computeIntersecion = (a1, a2) => {
   const rangeArry = a2.range;
   rangeArry.forEach((range) => {
     range.sort();
-    if(range[0] < arry[0] && range[1] > arry[arry.length - 1]) {
-      intersecion = [].concat([], a1);
-    }
-    if(range[0] < arry[0] && range[1] < arry[arry.length - 1]) {
-      const index = indexOfMaxLessThanEqualTo(arry, range[1]);
-      intersecion =  a1.slice(0, index + 1);
-    }
-    if(range[0] > arry[0] && range[1] > arry[arry.length - 1]) {
-      const index = indexOfMinGreaterThanEqualTo(arry, range[0])
-      intersecion = a1.slice(index, arry.length);
-    }
-    if(range[0] > arry[0] && range[1] < arry[arry.length - 1]) {
-      intersecion = [...new Array(range[1] - range[0] + 1)].map((e, i) => i + range[0]);
+    if((range[0] < arry[0] && range[1] < arry[0]) || (range[0] > arry[arry.length - 1] && range[1] > arry[arry.length - 1])) {
+      intersecion = [];
+    } else {
+      if(range[0] < arry[0] && range[1] > arry[arry.length - 1]) {
+        intersecion = [].concat([], a1);
+      }
+      if(range[0] < arry[0] && range[1] < arry[arry.length - 1]) {
+        const index = indexOfMaxLessThanEqualTo(arry, range[1]);
+        intersecion =  a1.slice(0, index + 1);
+      }
+      if(range[0] > arry[0] && range[1] > arry[arry.length - 1]) {
+        const index = indexOfMinGreaterThanEqualTo(arry, range[0])
+        intersecion = a1.slice(index, arry.length);
+      }
+      if(range[0] > arry[0] && range[1] < arry[arry.length - 1]) {
+        intersecion = [...new Array(range[1] - range[0] + 1)].map((e, i) => i + range[0]);
+      }
     }
   });
   return intersecion;
