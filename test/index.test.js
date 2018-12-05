@@ -2,6 +2,16 @@ import utils from '../util/index';
 import expect from 'expect.js'
 
 describe("computeUnion", function() {
+  it("It should return proper union when range is greater than sorted end", function() {
+    var a1 = [7000,7001,7002,7003,7004,7005];
+    var a2 = {eles: [], range: [[7008, 7012]]};
+    expect(utils.computeUnion(a1, a2).join(',')).to.equal([7000,7001,7002,7003,7004,7005,7008,7009,7010,7011,7012].join(','));
+  });
+  it("It should return proper union when range is less than sorted end", function() {
+    var a1 = [7000,7001,7002,7003,7004,7005];
+    var a2 = {eles: [], range: [[6991, 6994]]};
+    expect(utils.computeUnion(a1, a2).join(',')).to.equal([6991,6992,6993,6994,7000,7001,7002,7003,7004,7005].join(','));
+  });
   it("It should return proper union when range intercets with right end of sorted end", function() {
     var a1 = [7000,7001,7002,7003,7004,7005];
     var a2 = {eles: [7001, 6001], range: [[7003, 7008]]};

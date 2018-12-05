@@ -14,17 +14,21 @@ const computeUnion = (a1, a2) => {
   const rangeArry = a2.range;
   rangeArry.forEach((range) => {
     range.sort();
-    if(range[0] < arry[0]) {
-      union = [].concat([...new Array(arry[0] - range[0])].map((ele, i) => i + range[0]), union);
-    }
-    if(range[0] > arry[0] && binaryIndexOf(arry, range[0]) === -1) {
-      union = [].concat(union, range[0]);
-    }
-    if(arry[arry.length - 1] < range[1]) {
-      union = [].concat(union, [...new Array(range[1] - arry[arry.length - 1])].map((ele, i) => i + 1 + arry[arry.length - 1]));
-    }
-    if(arry[arry.length - 1] > range[1] && binaryIndexOf(arry, range[1]) === -1) {
-      union = [].concat(union, range[1]);
+    if((range[0] < arry[0] && range[1] < arry[0]) || (range[0] > arry[arry.length - 1] && range[1] > arry[arry.length - 1])) {
+      union = union.concat([...new Array(range[1] - range[0] + 1)].map((ele, i) => i + range[0]));
+    } else {
+      if(range[0] < arry[0]) {
+        union = [].concat([...new Array(arry[0] - range[0])].map((ele, i) => i + range[0]), union);
+      }
+      if(range[0] > arry[0] && binaryIndexOf(arry, range[0]) === -1) {
+        union = [].concat(union, range[0]);
+      }
+      if(arry[arry.length - 1] < range[1]) {
+        union = [].concat(union, [...new Array(range[1] - arry[arry.length - 1])].map((ele, i) => i + 1 + arry[arry.length - 1]));
+      }
+      if(arry[arry.length - 1] > range[1] && binaryIndexOf(arry, range[1]) === -1) {
+        union = [].concat(union, range[1]);
+      }
     }
   });
   return union.sort();
